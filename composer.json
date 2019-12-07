@@ -7,5 +7,8 @@
             "email": "vikt.anmail@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">= 7.1",
+        "ext-sockets": "ext-sockets"
+    }
 }

@@ -9,31 +9,31 @@ ob_implicit_flush();
 $address = '127.0.0.1';
 $port = 10000;
 
-if (($socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
+if (!($socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP))) {
     echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
 }
 
-if (socket_bind($socket, $address, $port) === false) {
+if (!socket_bind($socket, $address, $port)) {
     echo "socket_bind() failed: reason: " . socket_strerror(socket_last_error($socket)) . "\n";
 }
 
-if (socket_listen($socket, 5) === false) {
+if (!socket_listen($socket, 5)) {
     echo "socket_listen() failed: reason: " . socket_strerror(socket_last_error($socket)) . "\n";
 }
 
 do {
-    if(($msgsocket = socket_accept($socket)) === false) {
+    if(!($messagesSocket = socket_accept($socket))) {
         echo "socket_accept failed: reason: " . socket_strerror(socket_last_error($socket)) . "\n";
         break;
     }
 
     $message = "\n Welcome to the PHP Server. \n";
-    socket_write($msgsocket, $message, strlen($message));
+    socket_write($messagesSocket, $message, strlen($message));
 
     do {
-        $buf = socket_read($msgsocket, 2048, PHP_NORMAL_READ);
+        $buf = socket_read($messagesSocket, 2048, PHP_NORMAL_READ);
         if (!$buf) {
-            echo "socket_read() failed: reason: " . socket_strerror(socket_last_error($msgsocket)) . "\n";
+            echo "socket_read() failed: reason: " . socket_strerror(socket_last_error($messagesSocket)) . "\n";
             break 2;
         }
 
@@ -47,15 +47,15 @@ do {
         }
 
         if ($buf === 'shutdown') {
-            socket_close($msgsocket);
+            socket_close($messagesSocket);
             break 2;
         }
 
-        $talkback = "PHP: You said '$buf'.\n";
-        socket_write($msgsocket, $talkback, strlen($talkback));
+        $talkBack = "PHP: You said '$buf'.\n";
+        socket_write($messagesSocket, $talkBack, strlen($talkBack));
         echo "$buf\n";
     } while (true);
-    socket_close($msgsocket);
+    socket_close($messagesSocket);
 } while(true);
 
 socket_close();
