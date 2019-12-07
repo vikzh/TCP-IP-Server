@@ -58,4 +58,4 @@ do {
     socket_close($messagesSocket);
 } while (true);
 
-socket_close();
+socket_close($socket);
