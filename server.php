@@ -22,7 +22,7 @@ if (!socket_listen($socket, 5)) {
 }
 
 do {
-    if(!($messagesSocket = socket_accept($socket))) {
+    if (!($messagesSocket = socket_accept($socket))) {
         echo "socket_accept failed: reason: " . socket_strerror(socket_last_error($socket)) . "\n";
         break;
     }
@@ -56,6 +56,6 @@ do {
         echo "$buf\n";
     } while (true);
     socket_close($messagesSocket);
-} while(true);
+} while (true);
 
 socket_close();
