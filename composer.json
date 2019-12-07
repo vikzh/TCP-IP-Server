@@ -1,0 +1,11 @@
+{
+    "name": "viktor/socket-server",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "vikzh",
+            "email": "vikt.anmail@gmail.com"
+        }
+    ],
+    "require": {}
+}
